@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zostaniesz moją Walentynką?</title>
+    <style>
+        body {
+            background-color: #ffe6e6; /* Różowe tło */
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Żeby przycisk nie powodował pasków przewijania */
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #ff4d4d;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        /* Możesz tu wstawić link do gifa z kotkiem */
+        img {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative; /* Ważne dla pozycjonowania przycisków */
+        }
+
+        button {
+            font-size: 1.2rem;
+            padding: 10px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #yesBtn {
+            background-color: #ff4d4d;
+            color: white;
+            font-weight: bold;
+        }
+
+        #yesBtn:hover {
+            background-color: #e60000;
+            transform: scale(1.1);
+        }
+
+        #noBtn {
+            background-color: #e0e0e0;
+            color: #333;
+            position: absolute; /* To pozwala mu "latać" po ekranie */
+            /* Ustawiamy go początkowo obok przycisku TAK, ale w JS będziemy tym sterować */
+            left: 160px; /* Przykładowa pozycja startowa */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDdtZ2JiZDR0a3lvMDF4OGJymY5dmNjZ2F5cW05Ynz/LpDmM2wSt6Hm5fKJVa/giphy.gif" alt="Cute Gif">
+        
+        <h1 id="question">Paulinko, zostaniesz moją Walentynką?</h1>
+        
+        <div class="buttons">
+            <button id="yesBtn" onclick="acceptProposal()">TAK</button>
+            <button id="noBtn" onmouseover="moveButton()">NIE</button>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const questionText = document.getElementById('question');
+
+        // Funkcja uruchamiana po najechaniu myszką na "NIE"
+        function moveButton() {
+            // Pobieramy wymiary okna przeglądarki
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+
+            // Ustawiamy przyciskowi pozycję absolutną względem całego okna (body)
+            noBtn.style.position = 'fixed'; 
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        }
+
+        // Funkcja po kliknięciu "TAK"
+        function acceptProposal() {
+            questionText.innerHTML = "Wiedziałem! ❤️ Kocham Cię!";
+            // Możesz tu zmienić obrazek na inny
+            document.querySelector('img').src = "https://media.giphy.com/media/T86i6yDyOYz7J6v9d5/giphy.gif";
+            
+            // Ukrywamy przycisk "NIE"
+            noBtn.style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
